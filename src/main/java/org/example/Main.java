@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        String randomFrom = "Gary Oldman"; //Любая случайная строка.
-        String randomTo = "Miley Cyrus";  //Любая случайная строка.
+        String randomFrom = "..."; //Любая случайная строка.
+        String randomTo = "...";  //Любая случайная строка.
         int randomSalary = 100; //Любое случайное число.
 
 
@@ -37,20 +37,7 @@ public class Main {
         );
 
 // Создание почтового сервиса.
-        MailService<String> mailService = new MailService<>() {
-            @Override
-            public void accept(Object o) {
-                var mailMessage = (MailMessage) o;
-                var recipientContents = getMailBox().get(mailMessage.getTo());
-                if (recipientContents == null) {
-                    recipientContents = new ArrayList<>(List.of(mailMessage.getContent()));
-                }
-                else {
-                    recipientContents.add(mailMessage.getContent());
-                }
-                this.getMailBox().put(mailMessage.getTo(), recipientContents);
-            }
-        };
+        MailService<String> mailService = new MailService<>();
 
 // Обработка списка писем почтовым сервисом
         messages.stream().forEachOrdered(mailService);
@@ -74,7 +61,7 @@ public class Main {
                 )
         ) : "wrong mailService mailbox content (2)";
 
-       // assert mailBox.get(randomTo).equals(Collections.<String>emptyList()) : "wrong mailService mailbox content (3)";
+       assert mailBox.get(randomTo).equals(Collections.<String>emptyList()) : "wrong mailService mailbox content (3)";
 
 // Создание списка из трех зарплат.
         Salary salary1 = new Salary("Facebook", "Mark Zuckerberg", 1);
@@ -82,21 +69,7 @@ public class Main {
         Salary salary3 = new Salary(randomFrom, randomTo, randomSalary);
 
 // Создание почтового сервиса, обрабатывающего зарплаты.
-        MailService<Integer> salaryService = new MailService<>() {
-
-            @Override
-            public void accept(Object o) {
-                var salary = (Salary) o;
-                var recipientSalaries = getMailBox().get(salary.getTo());
-                if (recipientSalaries == null) {
-                    recipientSalaries = new ArrayList<>(List.of(salary.getSalary()));
-                }
-                else {
-                    recipientSalaries.add(salary.getSalary());
-                }
-                this.getMailBox().put(salary.getTo(), recipientSalaries);
-            }
-        };
+        MailService<Integer> salaryService = new MailService<>();
 
 // Обработка списка зарплат почтовым сервисом
         Arrays.asList(salary1, salary2, salary3).forEach(salaryService);

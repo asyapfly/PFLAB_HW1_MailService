@@ -3,9 +3,9 @@ package org.example;
 public class Salary {
     private String from;
     private String to;
-    private int salary;
+    private Integer salary;
 
-    public Salary(String from, String to, int salary) {
+    public Salary(String from, String to, Integer salary) {
 
         this.from = from;
         this.to = to;
@@ -28,11 +28,11 @@ public class Salary {
         this.to = to;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 }
